@@ -277,7 +277,7 @@
           const li = document.createElement('li');
 
           if (typeof item === 'object' && item.text) {
-            li.innerHTML = formatText(item.text);
+            li.innerHTML = item.text;
             li.className = 'depth' + (item.depth || 1);
 
             // 🔥 "전문의 면담" 절차 흐름 전체만 중앙 정렬
@@ -396,26 +396,5 @@
 
 </body>
 </html>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
