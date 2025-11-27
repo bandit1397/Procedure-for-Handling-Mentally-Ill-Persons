@@ -282,10 +282,9 @@
             li.className = 'depth' + (item.depth || 1);
 
             // "전문의 면담" 항목만 중앙 정렬
-            if (item.text.includes("전문의와 면담")) {
+            if (item.text.includes("전문의 면담<br>↓<br>입원 권고")) {
               li.style.textAlign = 'center';
             }
-
           } else {
             li.innerHTML = formatText(item);
             li.className = 'depth1';
@@ -396,6 +395,7 @@
 
 </body>
 </html>
+
 
 
 
