@@ -283,6 +283,9 @@
             if (item.text.includes("전문의 면담") && item.text.includes("입원 권고")) {
               li.style.textAlign = "center";
             }
+            if (item.text.includes("보호의무자 동의") && item.text.includes("환자 자필")) {
+              li.style.textAlign = "center";
+            }
 
           } else {
             li.innerHTML = formatText(item);
@@ -395,6 +398,7 @@
 
 </body>
 </html>
+
 
 
 
