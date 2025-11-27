@@ -234,9 +234,18 @@
         const items = data[category][section + "내용"][key] || [];
         const ul = document.createElement('ul');
         ul.className = 'detail-list';
-        items.forEach(text => {
+        items.forEach(item => {
           const li = document.createElement('li');
-          li.innerHTML = formatText(text);
+  
+          // item이 객체인지 확인
+          if (typeof item === 'object' && item.text) {
+            li.innerHTML = formatText(item.text);
+            li.className = 'depth' + (item.depth || 1); // depth 기본 1
+          } else {
+            li.innerHTML = formatText(item);
+            li.className = 'depth1';
+          }
+
           ul.appendChild(li);
         });
         container.appendChild(ul);
@@ -342,6 +351,7 @@
 
 </body>
 </html>
+
 
 
 
