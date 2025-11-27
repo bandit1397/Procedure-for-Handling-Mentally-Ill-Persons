@@ -1,251 +1,355 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>정신건강 및 자살예방 메뉴얼 - depth완성본</title>
-
-<style>
-body { font-family:sans-serif; padding:1rem; background:#f7f7f7; }
-
-.section { background:#fff; padding:1rem; border-radius:8px; margin-bottom:1.8rem; box-shadow:0 0 10px rgba(0,0,0,0.1); }
-
-input[type="radio"]{margin-right:.35rem;}
-label{margin-right:.8rem;cursor:pointer;}
-
-button{padding:.45rem 1rem;margin:.3rem 0;border-radius:4px;border:1px solid #ccc;background:#eee;cursor:pointer;}
-button.active,.flow-button.selected{background:#007bff;color:white;border-color:#007bff;}
-
-.hidden{display:none;}
-.flow-button{margin:.3rem .5rem .3rem 0;padding:.45rem 1rem;border:1px solid #bbb;border-radius:6px;background:white;cursor:pointer;}
-
-table{width:100%;border-collapse:collapse;margin-top:.8rem;}
-table,th,td{border:1px solid #aaa;}
-th,td{text-align:center;padding:.35rem}
-
-/*───────────[ 핵심 : depth 시스템 ]──────────*/
-.depth-box{margin:.35rem 0; line-height:1.45rem;}
-
-.depth0{padding-left:0rem;}
-.depth1{padding-left:1.5rem;}
-.depth2{padding-left:3rem;}
-.depth3{padding-left:4.5rem;}
-
-.depth0_5{padding-left:.75rem;}
-.depth1_5{padding-left:2.25rem;}
-.depth2_5{padding-left:3.75rem;}
-.depth3_5{padding-left:5.25rem;}
-
-.depth-box b{color:#000;font-weight:700;}
-.depth-box .r{color:#d60000;font-weight:700;}
-</style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>정신건강 및 자살예방 메뉴얼</title>
+  <style>
+    body { font-family: sans-serif; padding: 1rem; background-color: #f7f7f7; }
+    .section { margin-bottom: 2rem; background: white; padding: 1rem; border-radius: 8px; box-shadow: 0 0 10px rgba(0,0,0,0.1); }
+    input[type="radio"] { margin-right: 0.3rem; }
+    label { margin-right: 1rem; cursor: pointer; }
+    button {
+      display: block;
+      margin: 0.3rem 0;
+      padding: 0.4rem 1rem;
+      cursor: pointer;
+      border-radius: 4px;
+      border: 1px solid #ccc;
+      background-color: #eee;
+    }
+    button.active, .flow-button.selected { background-color: #007BFF; color: white; border-color: #007BFF; }
+    .sub-content { margin-top: 0.5rem; background: #eef; padding: 0.8rem; border-radius: 4px; }
+    .detail-list { margin-left: 1rem; list-style: disc; padding-left: 1rem; }
+    .flow-section { margin-top: 0.8rem; margin-left: 1rem; border-left: 3px solid #007BFF; padding-left: 1rem; background: #f0f8ff; border-radius: 4px; }
+    .hidden { display: none; }
+    .flow-button { margin: 0.3rem 0.5rem 0.3rem 0; padding: 0.5rem 1rem; border: 1px solid #ccc; background-color: #fff; cursor: pointer; border-radius: 5px; }
+    table { width: 100%; border-collapse: collapse; margin-top: 1rem; }
+    table, th, td { border: 1px solid #aaa; }
+    th, td { padding: 0.5rem; text-align: center; }
+  </style>
 </head>
-
 <body>
+  <h1 style="text-align:center; margin-top:0; padding:1rem 0; font-size:1.8rem;">
+    정신질환자 처리 메뉴얼
+  </h1>
+  
+  <div class="section">
+  <h2>1. 해당 항목 선택</h2>
+  <input type="radio" name="category" value="자의입원" id="self" />
+  <label for="self">자의입원</label>
 
-<h1 style="text-align:center;font-size:1.9rem;margin:0 0 1rem 0;">정신질환자 처리 매뉴얼 (depth 시스템 적용)</h1>
+  <input type="radio" name="category" value="동의입원" id="consent" />
+  <label for="consent">동의입원</label>
 
-<!--────────────────────────[ STEP 1 ]────────────────────────-->
-<div class="section">
-<h2>1. 유형 선택</h2>
+  <input type="radio" name="category" value="보호입원" id="guardian" />
+  <label for="guardian">보호입원</label>
 
-<input type="radio"name="category"value="자의입원"id="self"><label for="self">자의입원</label>
-<input type="radio"name="category"value="동의입원"id="consent"><label for="consent">동의입원</label>
-<input type="radio"name="category"value="보호입원"id="guardian"><label for="guardian">보호입원</label>
-<input type="radio"name="category"value="행정입원"id="admin"><label for="admin">행정입원</label>
-<input type="radio"name="category"value="응급입원"id="emergency"><label for="emergency">응급입원</label>
+  <input type="radio" name="category" value="행정입원" id="admin" />
+  <label for="admin">행정입원</label>
+
+  <input type="radio" name="category" value="응급입원" id="emergency" />
+  <label for="emergency">응급입원</label>
 </div>
 
-<!--────────────────────────[ STEP 2 ]────────────────────────-->
-<div class="section hidden" id="procedure-section">
-<h2>2. 절차</h2>
-<div id="procedure-buttons"></div>
+  <div class="section hidden" id="procedure-section">
+    <h2>2. 절차</h2>
+    <div id="procedure-buttons"></div>
+  </div>
+
+  <div class="section hidden" id="checklist-section">
+    <h2>3. 체크사항</h2>
+    <div id="checklist-buttons"></div>
+  </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const data = {
+      "자의입원": {
+        "절차": ["전문의 면담", "자의입원 신청", "입원", "퇴원신청", "퇴원"],
+        "핵심체크": ["입원 대상자 요건","병원의무사항"],
+        "절차내용": {
+          "전문의 면담": ["정신질환자 본인"],
+          "자의입원 신청": ["전문의와 면담 후 b정신질환자 본인b의 자필로 자의입원 신청서를 작성 제출"],
+          "퇴원신청": ["입원기간 중 b환자 본인b의 퇴원 신청"],
+          "퇴원": ["정신의료기관등의 장은 b지체 없이 퇴원b시켜야 한다"]
+        },
+        "핵심체크내용": {
+          "입원 대상자 요건": ["정신질환자나 그 밖에 정신건강상 문제가 있는 사람"],
+          "병원의무사항": ["2개월 마다 환자의 퇴원의사를 확인"]
+        }
+      },
+      "동의입원": {
+        "절차": ["전문의 면담", "동의입원 신청", "입원", "퇴원 신청", "보호의무자 퇴원 동의 여부"],
+        "핵심체크": ["입원 대상자 요건"],
+        "절차내용": {
+          "전문의 면담": ["정신질환자 본인"],
+          "동의입원 신청": ["전문의와 면담 후 입원 권고를 받으면 b보호의무자의 동의b를 받아 환자가 자필로 동의입원 신청서 작성"],
+          "퇴원 신청": ["환자 본인이 신청"],
+          "보호의무자 퇴원 동의 여부": ["환자 본인이 퇴원을 원하지만 보호의무자가 퇴원에 동의하지 않고 // 의사가 계속적인 치료가 필요하다고 판단할 경우에는 // 다른 유형의 입원(보호입원·행정입원)으로 전환될 수 있다."]
+        },
+        "핵심체크내용": {
+          "입원 대상자 요건": ["- 정신질환자"],
+        }
+      },
+      "보호입원": {
+        "절차": ["전문의 진단 및 입원결정", "보호입원 신청", "2주 이내에 다른 정신건강의학과 전문의 추가 소견","입원유지","입원적합성심사","입원유지 및 연장"],
+        "핵심체크": ["입원 대상자 요건"],
+        "절차내용": {
+          "보호입원 신청": ["정신질환자를 대면진단 한 후 r보호의무자 2인r의 b자필b로 '보호입원 등 신청서'를 증빙서류와 함께 제출"],
+          "2주 이내에 다른 정신건강의학과 전문의 추가 소견": ["입원 후 2주 내 r다른r 정신건강의료기관 소속의 전문의 소견을 추가로 받아야 b입원이 유지b(2명의 의사 소견이 b일치하지 않으면b r퇴원r)"],
+          "입원적합성심사": ["입원 시 권리고지를 받을 때 입원적합성심사 대면조사를 신청하면 조사원과 대면조사 실시됨. // 입원적합성심사는 입원일로부터 1개월 이내에 완료(부적합시 퇴원)."],
+          "입원유지 및 연장":["입원 기간을 연장하기 위해서 정신건강심사위원회의 심사"]
+        },
+        "핵심체크내용": {
+          "입원 대상자 요건": ["- 입원치료 또는 요양을 요하는 b정신질환b + b자 타의 위혐(보건복지부령으로 정함)b//- 자의입원과 달리 정신건강에 문제가 있는 사람은 입원대상에 포함되지 않으며 b정신질환자만b 대상으로 한다//- 정신건강복지법 의 정신질환자: 의학적 정신질환자 중 정신질환으로 인해 b독립적으로 일상생활을 영위하는데 중대한 제약이 있는 사람b//- 독립적으로 일상생활을 영위하는데 중대한 제약이 있는지 여부는 전문의가 전문성을 가지고 판단함"],
+        }
+      },
+       "행정입원": {
+        "절차": ["진단 및 보호신청", "진단을 위한 행정입원","치료를 위한 행정입원 등",],
+        "핵심체크": ["입원 대상자 요건"],
+        "절차내용": {
+          "진단 및 보호신청": ["- 대상자 발견//- b(경찰관이 전문의 또는 정신건강전문요원에게 진단과 보호 신청을 요청)b//- 정신건강의학과전문의 또는 정신건강전문요원이 지자체장에게 진단과 보호를 신청//- 지자체장이 전문의에게 진단 의뢰//- 의뢰받은 전문의가 지자체장에게 결과 통지//- 지자체장은 지정정신의료기관에 진단을 위한 행정입원 의뢰 또는 귀가조치"],
+          "진단을 위한 행정입원": ["- 지자체장은 전문의로부터 정확한 진단이 필요하다고 인정할 경우에 2주의 범위에서 기간을 정해 입원하게 할 수 있다//- 정신의료기관장은 지체없이 2인 이상의 전문의에게 증상을 진단하게 하고 결과를 지자체장에게 통지//b- (보호입원과 달리 행정입원은 같은 의료기관 소속 2인 이상 전문의의 진단도 가능)b//- 지자체장은 2인 이상 전문의의 소견이 일치하여 치료를 위한 입원이 가능하다는 통지를 받은 경우 치료를 위한 입원을 의뢰할 수 있다//"],
+          "치료를 위한 행정입원 등":["- 정신의료기관장이 지자체장에게 치료를 위한 입원 의뢰를 받으면 입원일로부터 3개월 범위 내로 입원을 유지할 수 있다//- 다만, 입원일로부터 1개월 이내에 입원적합성심사위위원히의 심사결과 '퇴원등'으로 통지를 받은 경우 즉시 퇴위시켜야한다//- 입원을 한 사람 또는 보호의무자의 퇴원 신청이 있을 경우 심사하고 그 결과에 따라야한다//- 입원기간을 연장하기 위해서는 3개월 이내에 2인 이상 전문의 등 심사 필요"],
+        },
+        "핵심체크내용": {
+          "입원 대상자 요건": ["b자 타의 위험b// 시간적 긴급r(X)r"],
+        }
+      },
+       "응급입원": {
+        "절차": ["응급입원의뢰 신청", "3일간 응급입원 및 전문의 진단", "입원필요성 및 입원유형전환"],
+        "핵심체크": ["입원 대상자 요건","서울청 정신응급 합동대응센터","정신질환자 치료연계 협업병원","주취자 응급의료센터 연락처","입원적합성심사위원회 설치기관","자살시도자 절차","자살시도자 사후관리"],
+        "절차내용": {
+          "응급입원의뢰 신청": ["- 입원 대상자를 발견한 사람이 b의사b와 b경찰관b의 b동의b를 받아 신청//b- (의사는 정신건강의학과전문의일 필요 없음)b//- r경찰관이 응급입원 의뢰서 신청자일 경우 응급입원 동의 경찰관은 다른 경찰관이어햐 한다r"],
+          "3일간 응급입원 및 전문의 진단": ["정신의료기관의 장은 응급입원이 의뢰된 환자를 3일 이내의 기간 동안 입원 시킬 수 있음// 위 기간 지체 없이 정신건강의학과전문의 증상을 진단"],
+          "입원필요성 및 입원유형전환":["진단 결과 자신의 건강 또는 안전이나 다른 사람에게 해를 끼칠 위험이 있어//계속하여 입원할 필요가 있다고 인정된 경우에는// 제41조부터 제44조까지의 규정에 따라 입원을 할 수 있도록 필요한 조치//(입원할 필요가 없다고 인정된 경우에는 즉시 퇴원)"],
+        },
+        "핵심체크내용": {
+          "입원 대상자 요건": ["- 정신질환자로 추정되는 사람//- b자 타의 위험b//- r시간적 긴급r"],
+          "서울청 정신응급 합동대응센터":["-연락처: 02-700-2912/3//- 야간, 휴일(17:30~익일 08:30)- 현장경찰 지원 요청시 현장출동 전담 처리//- 주간, 평일: 코칭, 병상정보, 이송지원(현장경찰 응급입원 이송 후 복귀했으나 병상이 없어 타병원 재이송이 필요한 경우 현정경찰 대신 재이송 업무도 처리) "],
+         
+          "정신질환자 치료연계 협업병원":[
+              ["서울아산병원", "1688-7575", "24시", "서울 송파구"],
+              ["r보라매병원r", "02-700-2959", "24시", "서울 동작구"],
+              ["서울의료원", "02-700-2958", "24시", "서울 중랑구"],
+              ["국립정신건강센터", "02-2204-0231/0119", "24시", "서울 광진구"],
+              ["r은평시립병원r", "02-300-8117", "월-목 09:00~16:00", "서울 은평구"],
+              ["마인드웰병원", "02-433-1195", "24시", "서울 중랑구"],
+              ["김포다은병원", "031-996-1338", "24시", "김포시 북변중로"],
+              ["송파미소병원", "02-1661-9299", "평일 09:00~17:30, (토)10:00~13:30", "서울 송파구"],
+              ["연세서울병원", "031-907-9920", "24시", "서울 중랑구"],
+              ["W진병원", "1577-1581", "24시", "경기 부천시"],
+              ["연세하늘병원", "031-836-7341", "평일 10:00~16:30, (토)10:00~12:00", "경기 의정부시"],
+              ["힐링스병원", "031-853-9222", "24시", "의정부시 청사로"],
+              ["베이직병원", "02-990-2999", "평일 09:30~17:30, (토)09:00~12:00", "서울 도봉구"],
+              ["지혜병원", "02-6279-0129", "평일 08:30~18:30, (토)08:30~15:00", "서울 동대문구"],
+              ["r혜상병원r", "02-844-6119", "평일 09:00~22:00 (토) 09:00~22:00", "서울 영등포구"],
+              ["부천사랑병원", "032-678-0114", "24시", "경기 부천시"],
+              ["화정병원", "031-979-7572", "평일 09:00~17:00", "경기도 고양시"],
+              ["r루카스병원r", "032-310-0100", "평일 09:00~19:00, 주말 09:00~19:00", "경기 부천시"],
+              ["건국대학병원", "02-2030-5555/02-1588-1533", "24시", "서울 광진구"],
+              ["명병원", "02-965-2800", "평일 09:00~21:00 주말 09:00~21:00", "서울 동대문구"],
+              ["r구로다나병원r", "02-2613-8001", "평일 09:30~20:00, 주말 09:30~20:00", "서울 구로구"],
+              ["라엘마음병원", "031-978-5454", "평일 09:30~17:00", "경기 고양시"],
+              ["휴엔병원", "031-753-1000", " 09:00~17:00", "경기 성남시"],
+              ["멘토스병원", "02-2214-5100", "24시", "서울 동대문구"],
+              ["r강서필병원r", "02-2608-8855", "평일 09:30~22:00", "서울 강서구"],
+              ["성지병원", "02-867-7056", "10:00~1700", "서울 금천구"],
+              ["r글로리 병원r", "032-262-9000", "24시, 18세 이상", "인천 부평구"],
+              ["r삼정병원r", "032-543-7530", "22시~05 (X)", "인천 계양구"],
+              ["r마음편한병원r", "032-207-7070", "9~17:30", "인천 계양구"],
+            ],
+          "주취자 응급의료센터 연락처":[
+              ["보라매병원", "02-700-2959, 010-6572-8997", "24시", "서울 동작구"],
+              ["서울의료원", "02-700-2958, 010-7489-2482", "24시", "서울 동작구"],
+              ["국립의료원", "02-700-2957, 010-3016-9783", "24시", "서울 중랑구"],
+              ["적십자병원", "02-700-2977, 010-7489-0980", "24시", "서울 광진구"],
+             ], 
+
+          "입원적합성심사위원회 설치기관":["국립정신건강센터 02-2204-0156"],
+          "자살시도자 절차":["응급입원 절차에 따라 입원//"],
+          "자살시도자 사후관리":["1. b자살시도자 등에게b관할 구역 안에 있는 b관계 지원기관(자살예방센터 및 정신건강복지센터)에// 관한 정보를 제공b(자살시도자 등의 r동의 필요 없음r)(서면, 전자우편 또는 휴대폰메시지)//2. 자살시도자등의 정보(강제 또는 무리한 수집 지양)를 관할 구역 내 다음 각 호의 기관에 제공//(b'자살시도자 등 개인정보 제공내역서' (생활질서계 통보))b"]
+        }
+      },
+    };
+
+      const procedureSection = document.getElementById('procedure-section');
+      const checklistSection = document.getElementById('checklist-section');
+      const procedureButtonsDiv = document.getElementById('procedure-buttons');
+      const checklistButtonsDiv = document.getElementById('checklist-buttons');
+
+      // 개선된 formatText 함수
+      const formatText = (text) => {
+        // Step 1: 마커를 임시 토큰으로 변환
+        text = text
+          .replace(/b(.*?)b/gs, '[[BLUE::$1]]')
+          .replace(/r(.*?)r/gs, '[[RED::$1]]');
+
+        // Step 2: HTML escape
+        text = text
+          .replace(/&/g, "&amp;")
+          .replace(/</g, "&lt;")
+          .replace(/>/g, "&gt;")
+          .replace(/"/g, "&quot;")
+          .replace(/'/g, "&#039;")
+          .replace(/\/\//g, '<br>');
+
+        // Step 3: 토큰 복원
+        text = text
+          .replace(/\[\[BLUE::(.*?)\]\]/gs, '<span style="color:blue;">$1</span>')
+          .replace(/\[\[RED::(.*?)\]\]/gs, '<span style="color:red;">$1</span>');
+
+        return text;
+      };
+
+      const createButton = (text, onClick) => {
+        const btn = document.createElement('button');
+        btn.textContent = text;
+        btn.className = 'flow-button';
+        btn.onclick = onClick;
+        return btn;
+      };
+
+      const toggleActive = (button, container) => {
+        container.querySelectorAll('button').forEach(btn => btn.classList.remove('active'));
+        button.classList.add('active');
+      };
+
+      const removeFlowBelow = (container) => {
+        container.querySelectorAll('.flow-section').forEach(el => el.remove());
+      };
+
+      const createContent = (category, key, section) => {
+        const container = document.createElement('div');
+        container.className = 'sub-content';
+
+        if (category === "응급입원" &&(key === "정신질환자 치료연계 협업병원" || key === "주취자 응급의료센터 연락처")) {
+          const table = document.createElement('table');
+          table.innerHTML = `
+            <tr><th>병원이름</th><th>전화번호</th><th>이용가능시간</th><th>병원위치</th></tr>
+          `;
+          data[category].핵심체크내용[key].forEach(row => {
+            const tr = document.createElement('tr');
+            row.forEach(cell => {
+              const td = document.createElement('td');
+              td.innerHTML = formatText(cell);
+              tr.appendChild(td);
+            });
+            table.appendChild(tr);
+          });
+          container.appendChild(table);
+          return container;
+        }
+
+        const items = data[category][section + "내용"][key] || [];
+        const ul = document.createElement('ul');
+        ul.className = 'detail-list';
+        items.forEach(text => {
+          const li = document.createElement('li');
+          li.innerHTML = formatText(text);
+          ul.appendChild(li);
+        });
+        container.appendChild(ul);
+
+        if (key === "보호의무자 퇴원 동의 여부") {
+          const agreeBtn = createButton("동의함", () => {
+            removeFlowBelow(container);
+            const flow = document.createElement('div');
+            flow.className = 'flow-section';
+            flow.innerHTML = `<strong>→ 퇴원</strong>`;
+            container.appendChild(flow);
+          });
+          const disagreeBtn = createButton("동의하지 않음", () => {
+            removeFlowBelow(container);
+            const flow = document.createElement('div');
+            flow.className = 'flow-section';
+            flow.innerHTML = `<strong>→ 의사 치료 필요 여부</strong>`;
+            const yesBtn = createButton("치료 필요 없음", () => {
+              removeFlowBelow(container);
+              const res = document.createElement('div');
+              res.className = 'flow-section';
+              res.innerHTML = `<strong>→ 퇴원</strong>`;
+              container.appendChild(res);
+            });
+            const noBtn = createButton("치료 필요 있음", () => {
+              removeFlowBelow(container);
+              const res = document.createElement('div');
+              res.className = 'flow-section';
+              res.innerHTML = `<strong>→ 퇴원거부 후 보호입원 또는 행정입원 전환</strong>`;
+              container.appendChild(res);
+            });
+            container.appendChild(flow);
+            flow.appendChild(yesBtn);
+            flow.appendChild(noBtn);
+          });
+          container.appendChild(agreeBtn);
+          container.appendChild(disagreeBtn);
+        }
+
+        return container;
+      };
+
+      document.querySelectorAll('input[name="category"]').forEach(radio => {
+        radio.addEventListener('change', () => {
+          const selected = radio.value;
+          procedureButtonsDiv.innerHTML = '';
+          checklistButtonsDiv.innerHTML = '';
+          procedureSection.classList.remove('hidden');
+          checklistSection.classList.remove('hidden');
+
+          data[selected].절차.forEach(proc => {
+            const btn = document.createElement('button');
+            btn.textContent = proc;
+            btn.onclick = () => {
+              toggleActive(btn, procedureButtonsDiv);
+              const existing = procedureButtonsDiv.querySelector('.sub-content');
+              if (existing) existing.remove();
+              const content = createContent(selected, proc, "절차");
+              btn.insertAdjacentElement('afterend', content);
+            };
+            procedureButtonsDiv.appendChild(btn);
+          });
+
+          data[selected].핵심체크.forEach(item => {
+            const btn = document.createElement('button');
+            btn.textContent = item;
+            btn.onclick = () => {
+              toggleActive(btn, checklistButtonsDiv);
+              const existing = checklistButtonsDiv.querySelector('.sub-content');
+              if (existing) existing.remove();
+              const content = createContent(selected, item, "핵심체크");
+              btn.insertAdjacentElement('afterend', content);
+            };
+            checklistButtonsDiv.appendChild(btn);
+          });
+        });
+      });
+    });
+  </script>
+
+<!-- 여기에 의견 남기기 버튼 삽입 -->
+<div style="margin-top: 1.5rem; text-align: center;">
+  <a href="https://docs.google.com/forms/d/e/1FAIpQLSdq-BtCklTCrpnL07spxS2Q6SNjLQEnY0nrog12Zk3H0MrDLg/viewform?embedded=true" 
+     target="_blank"
+     style="
+       display: inline-block;
+       padding: 0.7rem 1.4rem;
+       background: #4CAF50;
+       color: white;
+       font-size: 1rem;
+       font-weight: bold;
+       border-radius: 6px;
+       text-decoration: none;
+       box-shadow: 0 3px 6px rgba(0,0,0,0.2);
+       transition: 0.2s;
+     "
+     onmouseover="this.style.opacity='0.85'"
+     onmouseout="this.style.opacity='1'"
+  >
+    오류 & 추가 의견 남기기
+  </a>
 </div>
 
-<!--────────────────────────[ STEP 3 ]────────────────────────-->
-<div class="section hidden" id="checklist-section">
-<h2>3. 체크사항</h2>
-<div id="checklist-buttons"></div>
-</div>
-
-<script>
-// 📌 b,r 태그 자동변환 + depth 시스템 적용변환
-function format(text){
- return text
-  .replace(/\/\//g,"<br>")                       // 줄바꿈
-  .replace(/b(.*?)b/g,"<b>$1</b>")                // 굵게
-  .replace(/r(.*?)r/g,"<span class='r'>$1</span>")// 빨간글씨
-}
-
-// depth 적용 생성 함수
-function depthBlock(text, depth=0){
- let d=depth.toString().replace(".","_");
- return `<div class="depth-box depth${d}">${format(text)}</div>`;
-}
-
-
-document.addEventListener('DOMContentLoaded', () => {
-
-const data={
-
-"자의입원":{
- 절차:["전문의 면담","자의입원 신청","입원","퇴원신청","퇴원"],
- 핵심체크:["입원 대상자 요건","병원의무사항"],
- 절차내용:{
-  "전문의 면담":[ depthBlock("정신질환자 본인",0) ],  
-  "자의입원 신청":[ depthBlock("전문의 면담 후 b본인 자필b 신청서 작성",1) ],
-  "퇴원신청":[ depthBlock("입원기간 중 b환자 본인 퇴원신청 가능",1) ],
-  "퇴원":[ depthBlock("의료기관장은 b지체없이 퇴원 처리b",1) ],
- },
- 핵심체크내용:{
-  "입원 대상자 요건":[ depthBlock("정신질환자 또는 정신건강 문제자",0) ],
-  "병원의무사항":[ depthBlock("2개월마다 퇴원의사 확인",1) ]
- }
-
-},
-
-"동의입원":{
- 절차:["전문의 면담","동의입원 신청","입원","퇴원 신청","보호의무자 퇴원 불동의 시 전환"],
- 핵심체크:["입원 대상자"],
- 절차내용:{
-  "전문의 면담":[ depthBlock("정신질환자 면담",0)],
-  "동의입원 신청":[ depthBlock("입원 권고 → b보호의무자 동의 + 환자 자필b",1)],
-  "퇴원 신청":[ depthBlock("환자 본인이 신청",1)],
-  "보호의무자 퇴원 불동의 시 전환":[
-    depthBlock("보호자가 반대 + 의사 필요판단 → 보호/행정입원 전환가능",1.5)
-  ]
- },
- 핵심체크내용:{
-  "입원 대상자":[ depthBlock("정신질환자",0)]
- }
-
-},
-
-"보호입원":{
- 절차:["보호입원 신청","2주내 다른 전문의 소견","입원적합성심사","입원연장심사"],
- 핵심체크:["입원요건"],
- 절차내용:{
-   "보호입원 신청":[
-      depthBlock("대면진단 후 r보호의무자 2인r b자필 신청서 제출",0)
-   ],
-   "2주내 다른 전문의 소견":[
-      depthBlock("타병원 전문의 추가소견 必",1),
-      depthBlock("2명 소견 불일치 → r퇴원",1.5)
-   ],
-   "입원적합성심사":[
-      depthBlock("지자체 대면조사 신청가능",1),
-      depthBlock("1개월내 완료(부적합→퇴원)",1.5)
-   ],
-   "입원연장심사":[ depthBlock("연장시 심사 절차 필요",1)]
- },
- 핵심체크내용:{
-   "입원요건":[
-      depthBlock("b정신질환 + 자/타위험 존재b",0),
-      depthBlock("‘정신질환자’만 대상",1),
-      depthBlock("일상생활지장 판단은 전문의 판단",1.5)
-   ]
- }
-
-},
-
-"행정입원":{
- 절차:["진단/보호신청","행정입원 결정","3개월 치료입원 유지"],
- 핵심체크:["입원요건"],
- 절차내용:{
-   "진단/보호신청":[
-      depthBlock("경찰→전문의 진단요청",0),
-      depthBlock("전문의→지자체장 보호신청",1)
-   ],
-   "행정입원 결정":[
-      depthBlock("지자체장은 2주내 진단입원 명령가능",1),
-      depthBlock("같은 기관 2인전문의 진단도 인정(b보호입원과 차이점)b",1.5)
-   ],
-   "3개월 치료입원 유지":[
-      depthBlock("1개월내 적합성심사 필수",1),
-      depthBlock("부적합 통보→즉시퇴원",1.5)
-   ]
- },
- 핵심체크내용:{
-   "입원요건":[
-      depthBlock("b자/타위험 존재",0),
-      depthBlock("긴급성은 응급입원과 구별",1.5)
-   ]
- }
-},
-
-"응급입원":{
- 절차:["응급입원 신청","3일진단","입원유지여부전환"],
- 핵심체크:["입원요건","서울청 합동대응센터","협업병원","자살시도자 처리","사후관리"],
- 절차내용:{
-  "응급입원 신청":[
-      depthBlock("발견자→b의사+경찰관 동의b 필요",0),
-      depthBlock("경찰 신청시 승인경찰관은 타 경찰관",1.5)
-  ],
-  "3일진단":[ depthBlock("3일이내 전문의 진단",1)],
-  "입원유지여부전환":[
-      depthBlock("자/타위험 지속→입원유형 전환",1),
-      depthBlock("불필요 판단→즉시퇴원",1.5)
-  ]
- },
- 핵심체크내용:{
-   "입원요건":[
-      depthBlock("정신질환 추정 + b자/타위험b + r시간적 긴급",0)
-   ],
-   "서울청 합동대응센터":[
-      depthBlock("☎ 02-700-2912/3",0),
-      depthBlock("야간/휴일 출동지원",1.5)
-   ],
-   "협업병원":[ depthBlock("응급연계병원 리스트별도 확장가능",0)],
-   "자살시도자 처리":[ depthBlock("현장→이송→치료연계",0)],
-   "사후관리":[ depthBlock("사후케어기관연계 필수",0)]
- }
-
-},
-
-};//END DATA
-
-
-//-------------------------------------------------------------- UI EVENT
-document.querySelectorAll("input[name='category']").forEach(r=>{
- r.addEventListener("change",()=>{
-   const type=r.value;
-   loadSection(type);
- });
-});
-
-function loadSection(type){
- document.getElementById("procedure-section").classList.remove("hidden");
- document.getElementById("checklist-section").classList.remove("hidden");
-
- const p=document.getElementById("procedure-buttons");
- const c=document.getElementById("checklist-buttons");
- p.innerHTML=''; c.innerHTML='';
-
- data[type].절차.forEach(v=>{
-   let btn=document.createElement("button");
-   btn.textContent=v;
-   btn.onclick=()=>show(data[type].절차내용[v],"절차",btn);
-   p.appendChild(btn);
- });
-
- data[type].핵심체크.forEach(v=>{
-   let btn=document.createElement("button");
-   btn.textContent=v;
-   btn.onclick=()=>show(data[type].핵심체크내용[v],"체크",btn);
-   c.appendChild(btn);
- });
-}
-
-function show(arr,target,btn){
- document.querySelectorAll("button").forEach(b=>b.classList.remove("active"));
- btn.classList.add("active");
- let html="";
- arr.forEach(v=>html+=v);
- if(target=="절차")document.getElementById("procedure-section").innerHTML+=html;
- else document.getElementById("checklist-section").innerHTML+=html;
-}
-
-});
-</script>
 </body>
 </html>
