@@ -289,14 +289,14 @@
         container.appendChild(ul);
 
         if (key === "보호의무자 퇴원 동의 여부") {
-          const agreeBtn = createButton("동의함", () => {
+          const agreeBtn = createButton("동의하는 경우", () => {
             removeFlowBelow(container);
             const flow = document.createElement('div');
             flow.className = 'flow-section';
             flow.innerHTML = `<strong>→ 퇴원</strong>`;
             container.appendChild(flow);
           });
-          const disagreeBtn = createButton("동의하지 않음", () => {
+          const disagreeBtn = createButton("동의하지 않는 경우", () => {
             removeFlowBelow(container);
             const flow = document.createElement('div');
             flow.className = 'flow-section';
@@ -389,6 +389,7 @@
 
 </body>
 </html>
+
 
 
 
