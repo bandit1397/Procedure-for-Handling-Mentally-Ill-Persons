@@ -274,6 +274,7 @@
         const items = data[category][section + "내용"][key] || [];
         const ul = document.createElement('ul');
         ul.className = 'detail-list';
+        
         items.forEach(item => {
           const li = document.createElement('li');
 
@@ -281,10 +282,11 @@
             li.innerHTML = formatText(item.text);
             li.className = 'depth' + (item.depth || 1);
 
-            // "전문의 면담" 항목만 중앙 정렬
-            if (item.text.includes("전문의 면담<br>↓<br>입원 권고")) {
-              li.style.textAlign = 'center';
+            // 🔥 "전문의 면담" 절차 흐름 전체만 중앙 정렬
+            if (item.text.includes("전문의 면담") && item.text.includes("입원 권고")) {
+              li.style.textAlign = "center";
             }
+
           } else {
             li.innerHTML = formatText(item);
             li.className = 'depth1';
@@ -292,6 +294,7 @@
 
           ul.appendChild(li);
         });
+        
         container.appendChild(ul);
 
         if (key === "보호의무자 퇴원 동의 여부") {
@@ -395,6 +398,7 @@
 
 </body>
 </html>
+
 
 
 
