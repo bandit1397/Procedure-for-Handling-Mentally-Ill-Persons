@@ -70,38 +70,33 @@
   pointer-events: auto;
 }
 
-
-
-
-
-
     
+.detail-list {
+  list-style: none;   /* 점 없애기 */
+  padding-left: 0;
+  margin-left: 0;
+}
+
+.detail-list .depth1 {
+  margin-left: 0;     /* 최상위 */
+}
+
+.detail-list .depth2 {
+  margin-left: 1.5rem;  /* depth1 하위 */
+}
+
+.detail-list .depth3 {
+   margin-left: 3rem;    /* depth2 하위 */
+}
     
-    .detail-list {
-      list-style: none;   /* 점 없애기 */
-      padding-left: 0;
-      margin-left: 0;
-    }
-
-    .detail-list .depth1 {
-      margin-left: 0;     /* 최상위 */
-    }
-
-    .detail-list .depth2 {
-      margin-left: 1.5rem;  /* depth1 하위 */
-    }
-
-    .detail-list .depth3 {
-      margin-left: 3rem;    /* depth2 하위 */
-    }
+.flow-section { margin-top: 0.8rem; margin-left: 1rem; border-left: 3px solid #007BFF; padding-left: 1rem; background: #f0f8ff; border-radius: 4px; }
+.hidden { display: none; }
+.flow-button { margin: 0.3rem 0.5rem 0.3rem 0; padding: 0.5rem 1rem; border: 1px solid #ccc; background-color: #fff; cursor: pointer; border-radius: 5px; }
+table { width: 100%; border-collapse: collapse; margin-top: 1rem; }
+table, th, td { border: 1px solid #aaa; }
+th, td { padding: 0.5rem; text-align: center; }
     
-    .flow-section { margin-top: 0.8rem; margin-left: 1rem; border-left: 3px solid #007BFF; padding-left: 1rem; background: #f0f8ff; border-radius: 4px; }
-    .hidden { display: none; }
-    .flow-button { margin: 0.3rem 0.5rem 0.3rem 0; padding: 0.5rem 1rem; border: 1px solid #ccc; background-color: #fff; cursor: pointer; border-radius: 5px; }
-    table { width: 100%; border-collapse: collapse; margin-top: 1rem; }
-    table, th, td { border: 1px solid #aaa; }
-    th, td { padding: 0.5rem; text-align: center; }
-  </style>
+</style>
 </head>
   
 <body>
@@ -197,19 +192,19 @@
         "절차": ["전문의 진단 및 입원결정", "보호입원 신청", "2주 이내 전문의 추가소견","입원유지","입원적합성심사","입원 연장"],
         "핵심체크": ["입원 대상자 요건"],
         "절차내용":{
-          "전문의 진단 및 입원결정":[{"text":"➤ 전문의 진단 후 입원결정","depth":1}],
+          "전문의 진단 및 입원결정":[{"text":"➢ 전문의 진단 후 입원결정","depth":1}],
           "보호입원 신청":[
-           {"text":"➤ 보호입원 신청서 제출","depth":1},
+           {"text":"➢ 보호입원 신청서 제출","depth":1},
            {"text":"→ 보호의무자 2인 자필 동의 필요","depth":2}
            ],
          "2주 이내 전문의 추가소견":[
-           {"text":"➤ 입원 후 2주 내 다른 정신건강의료기관 전문의 소견 추가(불일치=퇴원)","depth":1},
+           {"text":"➢ 입원 후 2주 내 다른 정신건강의료기관 전문의 소견 추가(불일치=퇴원)","depth":1},
            ],
-         "입원유지":[{"text":"➤ 두 의사 의견 일치 시 유지","depth":1}],
+         "입원유지":[{"text":"➢ 두 의사 의견 일치 시 유지","depth":1}],
          "입원적합성심사":[
-           {"text":"➤ 입원일로부터 1개월 내 완료(부적합=퇴원)","depth":1},
+           {"text":"➢ 입원일로부터 1개월 내 완료(부적합=퇴원)","depth":1},
            {"text":"→ 입원시 권리고지 받을 때 입원적합성심사 신청","depth":2}],
-         "입원 연장":[{"text":"➤ 심사 필요","depth":1}]
+         "입원 연장":[{"text":"➢ 심사 필요","depth":1}]
          },
              
         "핵심체크내용": {
@@ -553,6 +548,7 @@
   
 </body>
 </html>
+
 
 
 
