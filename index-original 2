@@ -4,8 +4,18 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>정신건강 및 자살예방 메뉴얼</title>
+  
   <style>
-    body { font-family: sans-serif; padding: 1rem; background-color: #f7f7f7; }
+    html, body {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    min-height: 100vh;
+    font-family: "Apple SD Gothic Neo", "Malgun Gothic", sans-serif;
+    background: #f5f7fa;
+    color: #222;
+    }
+
     .section { margin-bottom: 2rem; background: white; padding: 1rem; border-radius: 8px; box-shadow: 0 0 10px rgba(0,0,0,0.1); }
     input[type="radio"] { margin-right: 0.3rem; }
     label { margin-right: 1rem; cursor: pointer; }
@@ -20,34 +30,84 @@
     }
     button.active, .flow-button.selected { background-color: #007BFF; color: white; border-color: #007BFF; }
     .sub-content { margin-top: 0.5rem; background: #eef; padding: 0.8rem; border-radius: 4px; }
+
+
+    /* 로고 화면 스타일 */
+  #logo-screen {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    background: #000;
+  }
+
+  #logo-screen img {
+    max-width: 90%;
+    max-height: 90%;
+    cursor: pointer;
+    transition: transform 2s ease, opacity 2s ease;
+  }
+
+  /* 로고 사라질 때 애니메이션 */
+  .logo-zoom-out {
+    transform: scale(1.5); /* 확대 */
+    opacity: 0;             /* 사라짐 */
+  }
+
+  /* 매뉴얼 화면 숨김 + 초기 상태는 축소 */
+ #manual-screen {
+  /* display:none 제거 */
+  padding: 1rem;
+  transform: scale(0.8);
+  opacity: 0;
+  transition: transform 1s ease, opacity 1s ease;
+  pointer-events: none; /* 숨겨져 있을 때 클릭 막기 */
+}
+
+#manual-screen.show {
+  transform: scale(1);
+  opacity: 1;
+  pointer-events: auto;
+}
+
     
-    .detail-list {
-      list-style: none;   /* 점 없애기 */
-      padding-left: 0;
-      margin-left: 0;
-    }
+.detail-list {
+  list-style: none;   /* 점 없애기 */
+  padding-left: 0;
+  margin-left: 0;
+}
 
-    .detail-list .depth1 {
-      margin-left: 0;     /* 최상위 */
-    }
+.detail-list .depth1 {
+  margin-left: 0;     /* 최상위 */
+}
 
-    .detail-list .depth2 {
-      margin-left: 1.5rem;  /* depth1 하위 */
-    }
+.detail-list .depth2 {
+  margin-left: 1.5rem;  /* depth1 하위 */
+}
 
-    .detail-list .depth3 {
-      margin-left: 3rem;    /* depth2 하위 */
-    }
+.detail-list .depth3 {
+   margin-left: 3rem;    /* depth2 하위 */
+}
     
-    .flow-section { margin-top: 0.8rem; margin-left: 1rem; border-left: 3px solid #007BFF; padding-left: 1rem; background: #f0f8ff; border-radius: 4px; }
-    .hidden { display: none; }
-    .flow-button { margin: 0.3rem 0.5rem 0.3rem 0; padding: 0.5rem 1rem; border: 1px solid #ccc; background-color: #fff; cursor: pointer; border-radius: 5px; }
-    table { width: 100%; border-collapse: collapse; margin-top: 1rem; }
-    table, th, td { border: 1px solid #aaa; }
-    th, td { padding: 0.5rem; text-align: center; }
-  </style>
+.flow-section { margin-top: 0.8rem; margin-left: 1rem; border-left: 3px solid #007BFF; padding-left: 1rem; background: #f0f8ff; border-radius: 4px; }
+.hidden { display: none; }
+.flow-button { margin: 0.3rem 0.5rem 0.3rem 0; padding: 0.5rem 1rem; border: 1px solid #ccc; background-color: #fff; cursor: pointer; border-radius: 5px; }
+table { width: 100%; border-collapse: collapse; margin-top: 1rem; }
+table, th, td { border: 1px solid #aaa; }
+th, td { padding: 0.5rem; text-align: center; }
+    
+</style>
 </head>
+  
 <body>
+<!-- 로고 화면 -->
+<div id="logo-screen">
+  <img src="logo.png" alt="수배자 매뉴얼 로고" id="logo-img">
+</div>
+
+<div id="manual-screen">
+
+  
   <h1 style="text-align:center; margin-top:0; padding:1rem 0; font-size:1.8rem;">
     정신질환자 처리 메뉴얼
   </h1>
@@ -91,13 +151,13 @@
             {"text": "➢ 정신질환자 본인","depth": 1}],
           "자의입원 신청": [
             {"text": "➢ 전문의와 면담","depth": 1},
-            {"text": "➢ b정신질환자 본인b의 자필 신청서 제출","depth": 1}],
+            {"text": "➢ 정신질환자 본인 자필 신청서 제출","depth": 1}],
           "입원": [
             {"text": "➢ 입원수속","depth": 1}],
           "퇴원신청": [
-            {"text": "➢ b환자 본인b의 퇴원 신청","depth": 1}], 
+            {"text": "➢ 환자 본인 퇴원 신청","depth": 1}], 
           "퇴원": [
-            {"text": "➢ b지체 없이 퇴원b시켜야 함","depth": 1}],
+            {"text": "➢ 지체 없이 퇴원","depth": 1}],
         },
         "핵심체크내용": {
           "입원 대상자 요건": [
@@ -112,10 +172,9 @@
         "핵심체크": ["입원 대상자 요건"],
         "절차내용": {
           "전문의 면담": [
-            {"text": "➢ 전문의와 면담 후 입원 권고를 받으면 보호의무자의 동의를 받아 환자가 자필로 동의입원 신청서 작성","depth": 1}],
+            {"text": "전문의 면담<br>↓<br>입원 권고","depth": 1}],
           "동의입원 신청": [
-            {"text": "➢ 전문의와 면담 후 입원 권고를 받으면 보호의무자의 동의를 받아 환자가 자필로 동의입원 신청서 작성","depth": 1},
-            {"text": "→ 입원 후 환자 퇴원 신청 또는 보호의무자 퇴원 동의 여부 확인","depth": 2}],
+             {"text": "보호의무자 동의<br>↓<br>환자 자필 동의입원 신청서 작성","depth": 1}],
           "입원": [
             {"text": "➢ 입원수속","depth": 1}],
           "퇴원 신청": [
@@ -130,42 +189,57 @@
         }
       },
       "보호입원": {
-        "절차": ["전문의 진단 및 입원결정", "보호입원 신청", "2주 이내에 다른 정신건강의학과 전문의 추가 소견","입원유지","입원적합성심사","입원유지 및 연장"],
+        "절차": ["전문의 진단 및 입원결정", "보호입원 신청", "2주 이내 전문의 추가소견","입원유지","입원적합성심사","입원 연장"],
         "핵심체크": ["입원 대상자 요건"],
-        "절차내용": {
-          "전문의 진단 및 입원결정": [
-            {"text": "➢ 전문의 진단 및 입원결정","depth": 1}],
-          "보호입원 신청": [
-            {"text": "➢ 정신질환자를 대면진단 한 후 r보호의무자 2인r의 b자필b로 '보호입원 등 신청서'를 증빙서류와 함께 제출","depth": 1}],
-          "2주 이내에 다른 정신건강의학과 전문의 추가 소견": [
-            {"text": "➢ 입원 후 2주 내 r다른r 정신건강의료기관 소속의 전문의 소견을 추가로 받아야 b입원이 유지b(2명의 의사 소견이 b일치하지 않으면b r퇴원r)","depth": 1}],
-          "입원유지": [
-            {"text": "➢ 입원유지","depth": 1}],
-          "입원적합성심사": [
-            {"text": "➢ 입원 시 권리고지를 받을 때 입원적합성심사 대면조사를 신청하면 조사원과 대면조사 실시됨. // 입원적합성심사는 입원일로부터 1개월 이내에 완료(부적합시 퇴원)","depth": 1}],
-          "입원유지 및 연장": [
-            {"text": "➢ 입원 기간을 연장하기 위해서 정신건강심사위원회의 심사","depth": 1}],
+        "절차내용":{
+          "전문의 진단 및 입원결정":[{"text":"➢ 전문의 진단 후 입원결정","depth":1}],
+          "보호입원 신청":[
+           {"text":"➢ 보호입원 신청서 제출","depth":1},
+           {"text":"→ 보호의무자 2인 자필 동의 필요","depth":2}
+           ],
+         "2주 이내 전문의 추가소견":[
+           {"text":"➢ 입원 후 2주 내 다른 정신건강의료기관 전문의 소견 추가(불일치=퇴원)","depth":1},
+           ],
+         "입원유지":[{"text":"➢ 두 의사 의견 일치 시 유지","depth":1}],
+         "입원적합성심사":[
+           {"text":"➢ '입원일'기준 1개월 내(부적합=퇴원)","depth":1},
+           {"text":"→ 입원시 권리고지 받을 때 입원적합성심사 신청","depth":2}],
+         "입원 연장":[{"text":"➢ 심사 필요","depth":1}]
          },
+             
         "핵심체크내용": {
-           "입원 대상자 요건": [
-            {"text": "➢ 입원치료 또는 요양을 요하는 b정신질환b + b자 타의 위혐(보건복지부령으로 정함)b//- 자의입원과 달리 정신건강에 문제가 있는 사람은 입원대상에 포함되지 않으며 b정신질환자만b 대상으로 한다//- 정신건강복지법 의 정신질환자: 의학적 정신질환자 중 정신질환으로 인해 b독립적으로 일상생활을 영위하는데 중대한 제약이 있는 사람b//- 독립적으로 일상생활을 영위하는데 중대한 제약이 있는지 여부는 전문의가 전문성을 가지고 판단함","depth": 1}],
-         }
+         "입원 대상자 요건": [
+            {"text": "➢ 정신질환 + 자 타의 위혐(보건복지부령으로 정함) ","depth": 1},
+            {"text": "→ 정신질환자만 대상","depth": 2},
+            {"text": "→ 자의입원은 정신건강에 문제가 있는 사람도 대상","depth": 2},
+            {"text": "→ 정신건강복지법 의 정신질환자 ","depth": 2},
+            {"text": "‣ 정신질환으로 독립적으로 일상생활에 중대한 제약이 있는 사람 ","depth": 3},
+            {"text": "‣ 중대한 제약이 있는지 여부는 전문의가 판단함","depth": 3}],
+          }
        },
         
        "행정입원": {
-        "절차": ["진단 및 보호신청", "진단을 위한 행정입원","치료를 위한 행정입원 등",],
+        "절차": ["진단 및 보호신청", "진단을 위한 행정입원","치료를 위한 행정입원",],
         "핵심체크": ["입원 대상자 요건"],
         "절차내용": {
           "진단 및 보호신청": [
-            {"text": "➢ 대상자 발견//- b(경찰관이 전문의 또는 정신건강전문요원에게 진단과 보호 신청을 요청)b//- 정신건강의학과전문의 또는 정신건강전문요원이 지자체장에게 진단과 보호를 신청//- 지자체장이 전문의에게 진단 의뢰//- 의뢰받은 전문의가 지자체장에게 결과 통지//- 지자체장은 지정정신의료기관에 진단을 위한 행정입원 의뢰 또는 귀가조치","depth": 1}],
+            {"text": "대상자 발견<br>↓<br>진단과 보호 신청 요청<br>(경찰관→정신건강전문의)<br>↓<br>지자체장에게 진단과 보호 신청<br>(정신건강의학과 전문의)<br>↓<br>전문의에게 진단 의뢰<br>(지자체장)<br>↓<br>지자체장에게 결과 통지<br>(전문의)<br>↓<br>진단을 위한 행정입원 의뢰 또는 귀가조치<br>(지자체장)","depth": 1}],
+             
+
           "진단을 위한 행정입원": [
-            {"text": "➢ 지자체장은 전문의로부터 정확한 진단이 필요하다고 인정할 경우에 2주의 범위에서 기간을 정해 입원하게 할 수 있다//- 정신의료기관장은 지체없이 2인 이상의 전문의에게 증상을 진단하게 하고 결과를 지자체장에게 통지//b- (보호입원과 달리 행정입원은 같은 의료기관 소속 2인 이상 전문의의 진단도 가능)b//- 지자체장은 2인 이상 전문의의 소견이 일치하여 치료를 위한 입원이 가능하다는 통지를 받은 경우 치료를 위한 입원을 의뢰할 수 있다//","depth": 1}],
-          "치료를 위한 행정입원 등": [
-            {"text": "➢ 정신의료기관장이 지자체장에게 치료를 위한 입원 의뢰를 받으면 입원일로부터 3개월 범위 내로 입원을 유지할 수 있다//- 다만, 입원일로부터 1개월 이내에 입원적합성심사위위원히의 심사결과 '퇴원등'으로 통지를 받은 경우 즉시 퇴위시켜야한다//- 입원을 한 사람 또는 보호의무자의 퇴원 신청이 있을 경우 심사하고 그 결과에 따라야한다//- 입원기간을 연장하기 위해서는 3개월 이내에 2인 이상 전문의 등 심사 필요","depth": 1}],
+            {"text": "진단입원(최장 2주)<br>↓<br>2인 전문의 진단 결과 지자체장에게 통지<br>(정신의료기관장)<br>↓<br>치료입원 의견 통지시 치료 입원 의뢰<br>(지자체장)","depth": 1}],
+          
+          "치료를 위한 행정입원": [
+            {"text": "➢ 최장 3개월 입원 유지 가능(정신의료기관장)","depth": 1},
+            {"text": "→ 입원적합성심사위위원회의 심사결과 '퇴원등'으로 통지를 받은 경우 즉시 퇴원","depth": 2},
+            {"text": "→ 입원 당사자 또는 보호의무자의 퇴원 신청이 있을 경우 심사하고 그 결과에 따름","depth": 2},
+            {"text": "→ 입원기간을 연장하기 위해서는 3개월 이내에 2인 이상 전문의 등 심사 필요","depth": 2}],
+
          },
         "핵심체크내용": {
           "입원 대상자 요건": [
-            {"text": "➢ b자 타의 위험b// 시간적 긴급r(X)r","depth": 1}],
+            {"text": "➢ 자 타의 위험","depth": 1},
+            {"text": "➢ 시간적 긴급(X)","depth": 1}],
          }
       },
         
@@ -174,29 +248,77 @@
         "핵심체크": ["입원 대상자 요건","서울청 정신응급 합동대응센터","정신질환자 치료연계 협업병원","주취자 응급의료센터 연락처","입원적합성심사위원회 설치기관","자살시도자 절차","자살시도자 사후관리"],
         "절차내용": {
           "응급입원의뢰 신청": [
-            {"text": "➢ 입원 대상자를 발견한 사람이 b의사b와 b경찰관b의 b동의b를 받아 신청//b- (의사는 정신건강의학과전문의일 필요 없음)b//- r경찰관이 응급입원 의뢰서 신청자일 경우 응급입원 동의 경찰관은 다른 경찰관이어햐 한다r","depth": 1}],
+            {"text": "➢ 입원 대상자를 발견한 사람이 신청","depth": 1},
+            {"text": "→ 의사 및 경찰관의 동의 필요","depth": 2},
+            {"text": "→ 의사는 정신과 전문의 필수 아님","depth": 2},
+            {"text": "→ 경찰관이 신청자인 경우","depth": 2},
+            {"text": "‣ 신청자와 다른 경찰관의 동의","depth": 3}],
           "3일간 응급입원 및 전문의 진단": [
-            {"text": "➢ 정신의료기관의 장은 응급입원이 의뢰된 환자를 3일 이내의 기간 동안 입원 시킬 수 있음// 위 기간 지체 없이 정신건강의학과전문의 증상을 진단","depth": 1}],
+            {"text": "➢ 3일 응급입원 중 전문의 진단","depth": 1}],
           "입원필요성 및 입원유형전환": [
-            {"text": "➢ 진단 결과 자신의 건강 또는 안전이나 다른 사람에게 해를 끼칠 위험이 있어//계속하여 입원할 필요가 있다고 인정된 경우에는// 제41조부터 제44조까지의 규정에 따라 입원을 할 수 있도록 필요한 조치//(입원할 필요가 없다고 인정된 경우에는 즉시 퇴원)","depth": 1}],
+            {"text": "진단 결과 계속 입원 필요 인정된 경우<br>↓<br>보호입원/행정입원으로 전환<br>↓<br>입원 불필요 인정시→즉시 퇴원","depth": 1}],
          },
         "핵심체크내용": {
           "입원 대상자 요건": [
-            {"text": "➢ 정신질환자로 추정되는 사람//- b자 타의 위험b//- r시간적 긴급r","depth": 1}],
+            {"text": "➢ 정신질환자로 추정","depth": 1},
+            {"text": "➢ 자‧타의 위험","depth": 1},
+            {"text": "➢ 시간적 긴급","depth": 1}],
+
           "서울청 정신응급 합동대응센터": [
-            {"text": "➢ 연락처: 02-700-2912/3//- 야간, 휴일(17:30~익일 08:30)- 현장경찰 지원 요청시 현장출동 전담 처리//- 주간, 평일: 코칭, 병상정보, 이송지원(현장경찰 응급입원 이송 후 복귀했으나 병상이 없어 타병원 재이송이 필요한 경우 현정경찰 대신 재이송 업무도 처리)","depth": 1}],
-
-
-
-
+            {"text": "➢ 연락처: 02-700-2912/3","depth": 1},
+            {"text": "➢ 야간, 휴일(17:30~익일 08:30)","depth": 1},
+            {"text": "→ 요청시 현장출동 전담 처리","depth": 2},
+            {"text": "➢ 주간, 평일","depth": 1},
+            {"text": "→ 코칭, 병상정보, 이송지원","depth": 2}],
+ 
+          "정신질환자 치료연계 협업병원":[ 
+            ["서울아산병원", "1688-7575", "24시", "서울 송파구"], 
+            ["r보라매병원r", "02-700-2959", "24시", "서울 동작구"], 
+            ["서울의료원", "02-700-2958", "24시", "서울 중랑구"], 
+            ["국립정신건강센터", "02-2204-0231/0119", "24시", "서울 광진구"], 
+            ["r은평시립병원r", "02-300-8117", "월-목 09:00~16:00", "서울 은평구"], 
+            ["마인드웰병원", "02-433-1195", "24시", "서울 중랑구"], 
+            ["김포다은병원", "031-996-1338", "24시", "김포시 북변중로"], 
+            ["송파미소병원", "02-1661-9299", "평일 09:00~17:30, (토)10:00~13:30", "서울 송파구"], 
+            ["연세서울병원", "031-907-9920", "24시", "서울 중랑구"], 
+            ["W진병원", "1577-1581", "24시", "경기 부천시"], 
+            ["연세하늘병원", "031-836-7341", "평일 10:00~16:30, (토)10:00~12:00", "경기 의정부시"],
+            ["힐링스병원", "031-853-9222", "24시", "의정부시 청사로"], 
+            ["베이직병원", "02-990-2999", "평일 09:30~17:30, (토)09:00~12:00", "서울 도봉구"],
+            ["지혜병원", "02-6279-0129", "평일 08:30~18:30, (토)08:30~15:00", "서울 동대문구"], 
+            ["r혜상병원r", "02-844-6119", "평일 09:00~22:00 (토) 09:00~22:00", "서울 영등포구"], 
+            ["부천사랑병원", "032-678-0114", "24시", "경기 부천시"], 
+            ["화정병원", "031-979-7572", "평일 09:00~17:00", "경기도 고양시"],
+            ["r루카스병원r", "032-310-0100", "평일 09:00~19:00, 주말 09:00~19:00", "경기 부천시"], 
+            ["건국대학병원", "02-2030-5555/02-1588-1533", "24시", "서울 광진구"], 
+            ["명병원", "02-965-2800", "평일 09:00~21:00 주말 09:00~21:00", "서울 동대문구"], 
+            ["r구로다나병원r", "02-2613-8001", "평일 09:30~20:00, 주말 09:30~20:00", "서울 구로구"], 
+            ["라엘마음병원", "031-978-5454", "평일 09:30~17:00", "경기 고양시"], 
+            ["휴엔병원", "031-753-1000", " 09:00~17:00", "경기 성남시"], 
+            ["멘토스병원", "02-2214-5100", "24시", "서울 동대문구"], 
+            ["r강서필병원r", "02-2608-8855", "평일 09:30~22:00", "서울 강서구"],
+            ["성지병원", "02-867-7056", "10:00~1700", "서울 금천구"], 
+            ["r글로리 병원r", "032-262-9000", "24시, 18세 이상", "인천 부평구"],
+            ["r삼정병원r", "032-543-7530", "22시~05 (X)", "인천 계양구"], 
+            ["r마음편한병원r", "032-207-7070", "9~17:30", "인천 계양구"], ], 
           
+          "주취자 응급의료센터 연락처":[ 
+            ["보라매병원", "02-700-2959, 010-6572-8997", "24시", "서울 동작구"], 
+            ["서울의료원", "02-700-2958, 010-7489-2482", "24시", "서울 동작구"], 
+            ["국립의료원", "02-700-2957, 010-3016-9783", "24시", "서울 중랑구"], 
+            ["적십자병원", "02-700-2977, 010-7489-0980", "24시", "서울 광진구"], ],
+   
           "입원적합성심사위원회 설치기관": [
             {"text": "➢ 국립정신건강센터 02-2204-0156","depth": 1}],
           "자살시도자 절차": [
-            {"text": "➢ 응급입원 절차에 따라 입원//","depth": 1}],
+            {"text": "➢ 응급입원 절차에 따라 입원","depth": 1}],
           "자살시도자 사후관리": [
-            {"text": "➢ 1. b자살시도자 등에게b관할 구역 안에 있는 b관계 지원기관(자살예방센터 및 정신건강복지센터)에// 관한 정보를 제공b(자살시도자 등의 r동의 필요 없음r)(서면, 전자우편 또는 휴대폰메시지)//2. 자살시도자등의 정보(강제 또는 무리한 수집 지양)를 관할 구역 내 다음 각 호의 기관에 제공//(b'자살시도자 등 개인정보 제공내역서' (생활질서계 통보))b","depth": 1}],
-          
+            {"text": "➢ 자살시도자에게 지원기관 정보 제공","depth": 1},
+            {"text": "→ 서면, 전자우편 또는 휴대폰메시지","depth": 2},
+            {"text": "➢ 자살시도자 등 개인정보 제공내역서","depth": 1},
+            {"text": "→ 생활질서계 통보","depth": 2},
+            {"text": "→ 자살시도자의 동의 필요 없음 ","depth": 2}],
+                
          }
       },
     };
@@ -272,13 +394,31 @@
         const items = data[category][section + "내용"][key] || [];
         const ul = document.createElement('ul');
         ul.className = 'detail-list';
+        
         items.forEach(item => {
           const li = document.createElement('li');
-  
-          // item이 객체인지 확인
+
           if (typeof item === 'object' && item.text) {
-            li.innerHTML = formatText(item.text);
-            li.className = 'depth' + (item.depth || 1); // depth 기본 1
+            li.innerHTML = item.text;
+            li.className = 'depth' + (item.depth || 1);
+
+            // 🔥 "전문의 면담" 절차 흐름 전체만 중앙 정렬
+            if (item.text.includes("전문의 면담") && item.text.includes("입원 권고")) {
+              li.style.textAlign = "center";
+            }
+            if (item.text.includes("보호의무자 동의") && item.text.includes("환자 자필")) {
+              li.style.textAlign = "center";
+            }
+            if (item.text.includes("대상자 발견")) {
+              li.style.textAlign = "center";
+            }
+            if (item.text.includes("치료입원 의견 통지시")) {
+              li.style.textAlign = "center";
+            }
+            if (item.text.includes("보호입원/행정입원")) {
+              li.style.textAlign = "center";
+            }
+
           } else {
             li.innerHTML = formatText(item);
             li.className = 'depth1';
@@ -286,6 +426,7 @@
 
           ul.appendChild(li);
         });
+        
         container.appendChild(ul);
 
         if (key === "보호의무자 퇴원 동의 여부") {
@@ -387,8 +528,45 @@
   </a>
 </div>
 
+</div>
+
+<script>
+  const logoImg = document.getElementById('logo-img');
+  const logoScreen = document.getElementById('logo-screen');
+  const manualScreen = document.getElementById('manual-screen');
+
+  logoImg.addEventListener('click', () => {
+    logoImg.classList.add('logo-zoom-out');
+
+    setTimeout(() => {
+      logoScreen.style.display = 'none';
+    
+      // display는 항상 block, 클래스로 등장 효과 적용
+      manualScreen.classList.add('show');
+    }, 2000);
+  });
+</script>
+
+
+  
 </body>
 </html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
