@@ -392,9 +392,16 @@ th, td { padding: 0.5rem; text-align: center; }
             row.forEach((cell, index) => {
               const td = document.createElement('td');
 
+              // ★ 두 번째 칸(전화번호 칸)만 링크 기능 적용
               if (index === 1) {
-                // 전화번호 칸만 tel 링크로 변환
-                td.innerHTML = `<a href="tel:${cell}">${cell}</a>`;
+                // 쉼표 기준 분리 후 각 번호에 tel 링크 생성
+                const numbers = cell.split(',').map(num => num.trim());
+                const linked = numbers
+                  .map(num => `<a href="tel:${num}">${num}</a>`)
+                  .join(', ');
+
+                td.innerHTML = linked;
+
               } else {
                 td.innerHTML = formatText(cell);
               }
@@ -557,5 +564,6 @@ th, td { padding: 0.5rem; text-align: center; }
  
 </body>
 </html>
+
 
 
