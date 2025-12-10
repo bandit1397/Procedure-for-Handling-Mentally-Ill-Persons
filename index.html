@@ -379,23 +379,37 @@ th, td { padding: 0.5rem; text-align: center; }
         const container = document.createElement('div');
         container.className = 'sub-content';
 
-        if (category === "응급입원" &&(key === "정신질환자 치료연계 협업병원" || key === "주취자 응급의료센터 연락처")) {
+        if (category === "응급입원" &&
+            (key === "정신질환자 치료연계 협업병원" || key === "주취자 응급의료센터 연락처")) {
+
           const table = document.createElement('table');
           table.innerHTML = `
             <tr><th>병원이름</th><th>전화번호</th><th>이용가능시간</th><th>병원위치</th></tr>
           `;
+
           data[category].핵심체크내용[key].forEach(row => {
             const tr = document.createElement('tr');
-            row.forEach(cell => {
+
+            row.forEach((cell, index) => {
               const td = document.createElement('td');
-              td.innerHTML = formatText(cell);
+
+              if (index === 1) {
+                // 전화번호 칸만 tel 링크로 변환
+                td.innerHTML = `<a href="tel:${cell}">${cell}</a>`;
+              } else {
+                td.innerHTML = formatText(cell);
+              }
+
               tr.appendChild(td);
             });
+
             table.appendChild(tr);
           });
+
           container.appendChild(table);
           return container;
         }
+
 
         const items = data[category][section + "내용"][key] || [];
         const ul = document.createElement('ul');
@@ -544,4 +558,5 @@ th, td { padding: 0.5rem; text-align: center; }
  
 </body>
 </html>
+
 
